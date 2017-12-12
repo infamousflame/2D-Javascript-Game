@@ -1,18 +1,22 @@
 var character = {
-  x: 200,
-  y: 1400,
+  x: canvas.width / 2,
+  y: canvas.width / 3,
   width: 200,
   height: 300
 }
 
 function checkGrounding(){
-  if(intersects(character, ground)){
-    character.grounded = true;
+  if(!direction.jump){
+    if(intersects(character, ground)){
+      character.grounded = true;
+    }else{
+      character.grounded = false;
+    }
   }else{
-    character.grounded = false;
+    if(intersects(character, ceiling)){
+      character.grounded = true;
+    }else{
+      character.grounded = false;
+    }
   }
-}
-
-function jump(intensity){
-  
 }

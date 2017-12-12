@@ -13,9 +13,11 @@ function keyDown(event){
       direction.left = true;
       break;
     case " ":
-      if(character.grounded){
-        jump(300);
-      }
+      direction.jump = !direction.jump;
+      character.grounded = false;
+      break;
+    case "j":
+      world.inverse();
       break;
   }
 }

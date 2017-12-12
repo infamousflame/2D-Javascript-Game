@@ -1,10 +1,7 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var width;
-var height;
-var direction = {};
+var direction = {jump:false};
 var offset = 2;
-var isGravity = true;
 
 var resize = function() {
   width = window.innerWidth * 2;
@@ -12,28 +9,29 @@ var resize = function() {
   canvas.width = width;
   canvas.height = height;
 }
-
 window.onresize = resize;
 resize();
 
 function draw() {
   ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "white";
+  renderColor(ctx, world.color);
   ctx.fillRect(ground.x, ground.y, ground.width, ground.height);
+  ctx.fillRect(ceiling.x, ceiling.y, ceiling.width, ceiling.height);
   ctx.fillRect(character.x, character.y, character.width, character.height);
 }
 
 function update(progress) {
   keyHandle(direction, progress);
-  gravity(8, isGravity);
+  gravity(12, direction.jump);
   checkGrounding();
 }
 
-
 function loop(timestamp) {
   var progress = (timestamp - lastRender);
+
   update(progress);
   draw();
+
   lastRender = timestamp;
   window.requestAnimationFrame(loop);
 }
