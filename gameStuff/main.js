@@ -17,13 +17,14 @@ function draw() {
   renderColor(ctx, world.color);
   ctx.fillRect(ground.x, ground.y, ground.width, ground.height);
   ctx.fillRect(ceiling.x, ceiling.y, ceiling.width, ceiling.height);
+  renderPlatforms(ctx);
   ctx.fillRect(character.x, character.y, character.width, character.height);
 }
 
 function update(progress) {
   keyHandle(direction, progress);
   gravity(12, direction.jump);
-  checkGrounding();
+  allCollisionDetection();
 }
 
 function loop(timestamp) {
@@ -37,10 +38,10 @@ function loop(timestamp) {
 }
 
 function keyHandle(key, progress){
-  if(direction.right){
+  if(direction.right && !direction.leftCollide){
     character.x += progress / offset;
   }
-  if(direction.left){
+  if(direction.left && !direction.rightCollide){
     character.x -= progress / offset;
   }
 }
